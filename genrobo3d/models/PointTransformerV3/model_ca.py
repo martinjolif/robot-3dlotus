@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from flash_attn.flash_attn_interface import flash_attn_unpadded_kvpacked_func
 
 try:
     import flash_attn
@@ -59,7 +60,7 @@ class CrossAttention(PointModule):
             max_seqlen_q = offset2bincount(point.offset).max()
             max_seqlen_k = offset2bincount(point.context_offset).max()
 
-            feat = flash_attn.flash_attn_varlen_kvpacked_func(
+            feat =  flash_attn_unpadded_kvpacked_func(
                 q.half(), kv.half(), cu_seqlens_q, cu_seqlens_k, max_seqlen_q, max_seqlen_k,
                 dropout_p=self.attn_drop if self.training else 0,
                 softmax_scale=self.scale

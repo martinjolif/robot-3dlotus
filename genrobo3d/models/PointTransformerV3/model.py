@@ -18,6 +18,7 @@ import torch_scatter
 from timm.models.layers import DropPath
 from collections import OrderedDict
 from easydict import EasyDict
+from flash_attn.flash_attn_interface import flash_attn_unpadded_qkvpacked_func
 
 try:
     import flash_attn
@@ -538,9 +539,10 @@ class SerializedAttention(PointModule):
                 ).exp()
                 q = F.normalize(q, dim=-1) * logit_scale
                 k = F.normalize(k, dim=-1)
+
             qkv = torch.stack([q, k, v], dim=1)     # (N'*K, 3, H, C')
 
-            feat = flash_attn.flash_attn_varlen_qkvpacked_func(
+            feat = flash_attn_unpadded_qkvpacked_func(
                 qkv.half(), #.reshape(-1, 3, H, C // H),
                 cu_seqlens,
                 max_seqlen=self.patch_size,
