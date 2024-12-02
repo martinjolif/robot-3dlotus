@@ -295,11 +295,19 @@
     "drag the block towards the navy square on the table top",
     "grasping the stick by one end, pick it up and use the its other end to move the block onto the navy target"
   ],
-  "reach_and_drag_peract+7": [
+ "reach_and_drag_peract+7": [
     "use the stick to drag the cube onto the cyan target",
     "pick up the stick and use it to push or pull the cube onto the cyan target",
     "drag the block towards the cyan square on the table top",
     "grasping the stick by one end, pick it up and use the its other end to move the block onto the cyan target"
+  ],
+  "reach_target_tutorial1+3": [
+     "reach the green target",
+     "reach the green thing"
+  ],
+  "reach_target_tutorial1+2": [
+     "reach the green target",
+     "reach the green thing"     
   ],
   "close_jar_peract+3": [
     "close the green jar",
