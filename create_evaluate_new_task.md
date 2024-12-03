@@ -2,9 +2,15 @@
 
 ## 1. Installation Instruction
 
-1. Setup an Ubuntu 20.04 exploitation  system for your machine
+1. Setup an Ubuntu 20.04 operating system for your machine
 
-2. Install general python packages
+2. Install nvidia drivers
+```
+sudo apt install ubuntu-drivers-common
+sudo ubuntu-drivers devices
+sudo apt install nvidia-driver-535
+```
+3. Install general python packages
 ```bash
 conda create -n gembench python==3.10
 
@@ -27,7 +33,7 @@ pip install -e .
 ```
 You may have to change the version of flash_attn library depending on the GPU you are using (here it's support T4 GPU, see this [commit](https://github.com/martinjolif/robot-3dlotus/commit/7b17c54abc6ae84468865e09a056ec1848151f7a) for more details). 
 
-3. Install RLBench
+4. Install RLBench
 ```bash
 mkdir dependencies
 cd dependencies
@@ -63,7 +69,7 @@ pip install .
 cd ../..
 ```
 
-4. Install model dependencies
+5. Install model dependencies
 
 ```bash
 cd dependencies
@@ -80,7 +86,7 @@ python setup.py install
 cd ../..
 ```
 
-5. Running headless
+6. Running headless
 
 If you have sudo priviledge on the headless machine, you could follow [this instruction](https://github.com/rjgpinel/RLBench?tab=readme-ov-file#running-headless) to run RLBench.
 
@@ -100,13 +106,13 @@ singularity shell --bind $HOME:$HOME,$SCRATCH:$SCRATCH --nv $SINGULARITY_IMAGE_P
 singularity exec --bind $HOME:$HOME,$SCRATCH:$SCRATCH --nv $SINGULARITY_IMAGE_PATH xvfb-run -a ${python_bin} ...
 ```
 
-6. Adapt the codebase to your environment
+7. Adapt the codebase to your environment
 
 To adapt the codebase to your environment, you may need to modify the following:
 - replace everywhere $HOME/codes/robot-3dlotus with your path to robot-3dlotus folder
 - replace everywhere the sif_image path to your path to the singularity image nvcuda_v2.sif
 
-7. Enventually download the original dataset 
+8. Enventually download the original dataset 
 
 The dataset can be found in [Dropbox](https://www.dropbox.com/scl/fo/y0jj42hmrhedofd7dmb53/APlY-eJRqv375beJTIOszFc?rlkey=2txputjiysyg255oewin2m4t2&st=vfoctgi3&dl=0).
 Put the dataset in the `data/gembench` folder.
@@ -130,7 +136,7 @@ Dataset structure is as follows:
         - test_dataset
             - microsteps: 2.2G, initial configurations for each episode
 ```
-8. Downloads the checkpoints 
+9. Downloads the checkpoints 
 
 The trained checkpoints are available [here](https://www.dropbox.com/scl/fo/0g6iz7d7zb524339dgtms/AHS42SO7aPpwut8I8YN8H3w?rlkey=3fwdehsguqsxofzq9kp9fy8fm&st=eqdd6qvf&dl=0). You should put them in the folder data/experiments/gembench/3dlotus/v1
 
